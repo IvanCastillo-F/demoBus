@@ -1,4 +1,6 @@
 using BusProyectApi.Data;
+using BusProyectApi.Data.Interfaces;
+using BusProyectApi.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Add Route Methods to the proyect
+builder.Services.AddTransient<IRouteRepository, RouteRepository>();
+
+//Add Booking Methods to the proyect
+builder.Services.AddTransient<IBookingRepository, BookingRepository>();
 
 var app = builder.Build();
 
