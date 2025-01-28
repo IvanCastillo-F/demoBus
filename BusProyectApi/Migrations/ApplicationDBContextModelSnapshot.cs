@@ -89,12 +89,10 @@ namespace BusProyectApi.Migrations
                     b.Property<DateTime>("DepartingTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RouteIdId")
+                    b.Property<int>("RouteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RouteIdId");
 
                     b.ToTable("schedules");
                 });
@@ -162,17 +160,6 @@ namespace BusProyectApi.Migrations
                         .IsUnique();
 
                     b.ToTable("users");
-                });
-
-            modelBuilder.Entity("BusProyectApi.Models.Entities.BusSchedule", b =>
-                {
-                    b.HasOne("BusProyectApi.Models.Entities.RouteInfo", "RouteId")
-                        .WithMany()
-                        .HasForeignKey("RouteIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RouteId");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,12 +9,12 @@ public class BaseController : ControllerBase {
         _context = context;
     }
 
-    protected async Task<bool> isAdmin() {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (userId == null)
-            return false;
+    // protected async Task<bool> IsAdmin() {
+    //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    //     if (userId == null)
+    //         return false;
 
-        var currentUser = await _context.users.FindAsync(int.Parse(userId));
-        return currentUser?.IsAdmin ?? false;
-    }
+    //     var currentUser = await _context.users.FindAsync(int.Parse(userId));
+    //     return currentUser?.IsAdmin ?? false;
+    // }
 }
