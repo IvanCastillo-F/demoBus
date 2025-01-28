@@ -31,7 +31,7 @@ namespace BusProyectApi.Controllers {
         }
 
         // CREATE USER
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user) {
             // if (!await IsAdmin()) {
@@ -48,38 +48,38 @@ namespace BusProyectApi.Controllers {
             return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
         }
 
-        // [HttpPost("login")]
-        // public IActionResult Login([FromBody] LoginModel loginModel)
-        // {
-        //     // Hardcode a simple user check (in a real scenario, you would query the database)
-        //     if (loginModel.Username == "MirandaLawson" && loginModel.Password == "CerberusOfficer") {
-        //     // Simulate the user object with IsAdmin flag
-        //     var user = new User
-        //     {
-        //         Id = 1,
-        //         Username = "MirandaLawson",
-        //         IsAdmin = true // Set to true for testing admin access
-        //     };
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginModel loginModel)
+        {
+            // Hardcode a simple user check (in a real scenario, you would query the database)
+            if (loginModel.Username == "MirandaLawson" && loginModel.Password == "CerberusOfficer") {
+            // Simulate the user object with IsAdmin flag
+            var user = new User
+            {
+                Id = 1,
+                Username = "MirandaLawson",
+                IsAdmin = true // Set to true for testing admin access
+            };
 
-        //     // Generate JWT token for the hardcoded user
-        //     var token = TokenService.GenerateToken(user.Id, user.IsAdmin);
+            // Generate JWT token for the hardcoded user
+            var token = TokenService.GenerateToken(user.Id, user.IsAdmin);
             
-        //     return Ok(new { token });
-        //     } else {
-        //         return Unauthorized("Invalid credentials."); 
-        //     }
-        // }
+            return Ok(new { token });
+            } else {
+                return Unauthorized("Invalid credentials."); 
+            }
+        }
 
-        // public class LoginModel
-        // {
-        //     public required string Username { get; set; }
-        //     public required string Password { get; set; }
-        // }
+        public class LoginModel
+        {
+            public required string Username { get; set; }
+            public required string Password { get; set; }
+        }
 
 
 
         // UPDATE USER
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, User user) {
 
@@ -111,7 +111,7 @@ namespace BusProyectApi.Controllers {
         }
 
         // DELETE USER
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id) {
             // if (!await IsAdmin()) {
