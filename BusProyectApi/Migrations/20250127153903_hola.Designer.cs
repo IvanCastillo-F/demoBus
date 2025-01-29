@@ -4,6 +4,7 @@ using BusProyectApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusProyectApi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250127153903_hola")]
+    partial class hola
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,9 +52,9 @@ namespace BusProyectApi.Migrations
 
             modelBuilder.Entity("BusProyectApi.Models.Entities.BusInfo", b =>
                 {
-                    b.Property<string>("BusPlate")
-                        .HasMaxLength(18)
-                        .HasColumnType("nvarchar(18)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
@@ -67,7 +70,7 @@ namespace BusProyectApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("BusPlate");
+                    b.HasKey("Id");
 
                     b.ToTable("buses");
                 });
@@ -83,10 +86,8 @@ namespace BusProyectApi.Migrations
                     b.Property<DateTime>("ArrivingTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("BusId")
-                        .IsRequired()
-                        .HasMaxLength(18)
-                        .HasColumnType("nvarchar(18)");
+                    b.Property<Guid>("BusId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DepartingTime")
                         .HasColumnType("datetime2");

@@ -6,19 +6,21 @@ namespace BusProyectApi.Models.Entities
     public class BusSchedule
     {
         [Key]
+        [Required]
         public int Id { get; set; } // Identifier
-
-        [Required(ErrorMessage = "Arriving Time is Required")]
-        [FutureDate(ErrorMessage = "Please enter a date greater than or equal to today.")]
-        public DateTime ArrivingTime { get; set; } // Arriving time
 
         [Required(ErrorMessage = "Departing Time is Required")]
         [FutureDate(ErrorMessage = "Please enter a date greater than or equal to today.")]
         public DateTime DepartingTime { get; set; } // Departing time
 
+        [Required(ErrorMessage = "Arriving Time is Required")]
+        [FutureDate(ErrorMessage = "Please enter a date greater than or equal to today.")]
+        public DateTime ArrivingTime { get; set; } // Arriving time
+
         [ForeignKeyExists(typeof(BusInfo), "BusInfo")]
         [Required(ErrorMessage = "Bus FK is Required")]
-        public Guid BusId { get; set; }
+        [StringLength(18)]
+        public string BusId { get; set; }
 
         // Foreign key to RouteInfo
         [ForeignKeyExists(typeof(RouteInfo), "RouteInfo")]
