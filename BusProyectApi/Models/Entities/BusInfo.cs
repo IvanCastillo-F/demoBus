@@ -17,8 +17,7 @@ namespace BusProyectApi.Models.Entities
 
         [Required(ErrorMessage = "Category is required")]
         public string Category { get; set; } // Category
-
-        [Required(ErrorMessage = "Status is required")]
+        [Required(ErrorMessage = "Status is needed")]
         public string Status { get; set; } // Status
     }
 }
