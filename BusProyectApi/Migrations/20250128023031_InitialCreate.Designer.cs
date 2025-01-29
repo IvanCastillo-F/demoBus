@@ -4,6 +4,7 @@ using BusProyectApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusProyectApi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250128023031_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,12 +92,10 @@ namespace BusProyectApi.Migrations
                     b.Property<DateTime>("DepartingTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RouteIdId")
+                    b.Property<int>("RouteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RouteIdId");
 
                     b.ToTable("schedules");
                 });
@@ -162,17 +163,6 @@ namespace BusProyectApi.Migrations
                         .IsUnique();
 
                     b.ToTable("users");
-                });
-
-            modelBuilder.Entity("BusProyectApi.Models.Entities.BusSchedule", b =>
-                {
-                    b.HasOne("BusProyectApi.Models.Entities.RouteInfo", "RouteId")
-                        .WithMany()
-                        .HasForeignKey("RouteIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RouteId");
                 });
 #pragma warning restore 612, 618
         }
