@@ -18,7 +18,8 @@ namespace BusProyectApi.Models.Entities
 
         [ForeignKeyExists(typeof(BusInfo), "BusInfo")]
         [Required(ErrorMessage = "Bus FK is Required")]
-        public Guid BusId { get; set; }
+        [StringLength(18)]
+        public string BusId { get; set; }
 
         // Foreign key to RouteInfo
         [ForeignKeyExists(typeof(RouteInfo), "RouteInfo")]
