@@ -75,7 +75,7 @@ namespace BusProyectApi.Controllers
                     }*/
 
                     // If there are no duplicates, create the bus.
-                    _context.buses.Add(buss);
+                    _context.buses.Add(bus);
                     await _context.SaveChangesAsync();
                     return CreatedAtAction(nameof(GetBuses), new { BusPlate = bus.BusPlate }, bus);
                 }

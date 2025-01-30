@@ -1,5 +1,6 @@
 ﻿using BusProyectApi.Data.Interfaces;
 using BusProyectApi.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -73,6 +74,7 @@ namespace BusProyectApi.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoute(int id)
         {
@@ -101,6 +103,7 @@ namespace BusProyectApi.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> AddRoute(RouteInfo route)
         {
@@ -117,6 +120,8 @@ namespace BusProyectApi.Controllers
                     });
                 }
                 route.Id = 0;
+                route.ArrivingPlace = route.ArrivingPlace.ToUpper();
+                route.DeparturePlace = route.DeparturePlace.ToUpper();
                 // Create the route if no duplicate is found
                 var createdRoute = await _routeRepository.CreateRouteAsync(route);
                 return CreatedAtAction(nameof(AddRoute), createdRoute);
@@ -128,6 +133,7 @@ namespace BusProyectApi.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> UpdateRoute(RouteInfo routeToUpdate)
         {
@@ -157,8 +163,8 @@ namespace BusProyectApi.Controllers
                 }
 
                 // Update the route details
-                existingRoute.DeparturePlace = routeToUpdate.DeparturePlace;
-                existingRoute.ArrivingPlace = routeToUpdate.ArrivingPlace;
+                existingRoute.DeparturePlace = routeToUpdate.DeparturePlace.ToUpper();
+                existingRoute.ArrivingPlace = routeToUpdate.ArrivingPlace.ToUpper();
                 existingRoute.RouteName = routeToUpdate.RouteName;
                 existingRoute.Distance = routeToUpdate.Distance;
                 existingRoute.NumberOfStops = routeToUpdate.NumberOfStops;
