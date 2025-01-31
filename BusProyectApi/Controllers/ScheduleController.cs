@@ -55,6 +55,7 @@ namespace BusProyectApi.Controllers
         }
 
         // CREATE SCHEDULE
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<BusSchedule>> CreateSchedule(BusSchedule schedule)
         {
@@ -78,6 +79,7 @@ namespace BusProyectApi.Controllers
         }
 
         // UPDATE SCHEDULE
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<BusSchedule>> UpdateSchedule(int id, BusSchedule schedule)
         {
@@ -104,6 +106,7 @@ namespace BusProyectApi.Controllers
         }
 
         // DELETE SCHEDULE
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSchedule(int id)
         {
