@@ -23,6 +23,7 @@ namespace BusProyectApi.Controllers
 
         // GET ALL BUSES
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<BusInfo>>> GetBuses()
         {
             try

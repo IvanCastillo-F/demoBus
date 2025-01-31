@@ -16,7 +16,8 @@ builder.Services.AddControllers();
 // Add authentication services to the container
 builder.Services.AddAuthentication("Bearer") //JwtBearerDefaults.AuthenticationScheme?
     .AddJwtBearer(options =>
-    {
+    { 
+        
 
         options.Events = new JwtBearerEvents
         {

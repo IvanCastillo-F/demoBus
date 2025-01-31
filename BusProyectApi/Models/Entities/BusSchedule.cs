@@ -7,7 +7,8 @@ namespace BusProyectApi.Models.Entities
     {
         [Key]
         [Required]
-        public int Id { get; set; } // Identifier
+        public int Id { get; set; } // Identifier 
+        
 
         [Required(ErrorMessage = "Departing Time is Required")]
         [FutureDate(ErrorMessage = "Please enter a date greater than or equal to today.")]
