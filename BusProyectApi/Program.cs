@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,28 @@ builder.Services.AddControllers();
 builder.Services.AddAuthentication("Bearer") //JwtBearerDefaults.AuthenticationScheme?
     .AddJwtBearer(options =>
     {
+
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = context =>
+            {
+                // Skip the default behavior
+                context.HandleResponse();
+
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+
+                var errorResponse = new
+                {
+                    StatusCode = 401,
+                    Message = "Unauthorized access: Bearer token is missing or invalid."
+                };
+
+                var errorJson = JsonSerializer.Serialize(errorResponse);
+
+                return context.Response.WriteAsync(errorJson);
+            }
+        };
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
