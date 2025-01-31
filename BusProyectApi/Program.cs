@@ -16,7 +16,8 @@ builder.Services.AddControllers();
 // Add authentication services to the container
 builder.Services.AddAuthentication("Bearer") //JwtBearerDefaults.AuthenticationScheme?
     .AddJwtBearer(options =>
-    {
+    { 
+        
 
         options.Events = new JwtBearerEvents
         {
@@ -73,7 +74,8 @@ builder.Services.AddSwaggerGen();
 //
 //This is a comment
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+.EnableSensitiveDataLogging());
 
 //Add Route Methods to the proyect
 builder.Services.AddTransient<IRouteRepository, RouteRepository>();

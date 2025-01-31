@@ -7,16 +7,19 @@ namespace BusProyectApi.Models.Entities
     {
         [Key]
         [StringLength(18)]
-        public string BusPlate { get; set; } // Identifier (bus plates
+        public string BusPlate { get; set; } // Identifier (bus plates)
 
-        [Required(ErrorMessage = "Capacity is needed")]
-        public int Capacity { get; set; } // Number of seats
+        [Required(ErrorMessage = "Capacity is required")]
+        public int? Capacity { get; set; } // Number of seats
 
-        [DefaultValue(true)]
-        public bool IsAvailable { get; set; } // Available
-        [Required(ErrorMessage = "Category is needed")]
+        //[DefaultValue(true)]
+        public bool IsAvailable { get; set; } = true; // Available
+
+        [Required(ErrorMessage = "Category is required")]
         public string Category { get; set; } // Category
         [Required(ErrorMessage = "Status is needed")]
         public string Status { get; set; } // Status
+        
     }
 }
+ 

@@ -23,6 +23,7 @@ namespace BusProyectApi.Controllers
 
         // GET ALL BUSES
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<BusInfo>>> GetBuses()
         {
             try
@@ -57,42 +58,31 @@ namespace BusProyectApi.Controllers
         }
 
         // CREATE BUS
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<BusInfo>> CreateBus(BusInfo bus)
         {
-            /*if (IsAdmin == 1)
-            {*/
-                try
-                {
-
-                    if (_context.buses.Any(b => b.BusPlate == bus.BusPlate))
-                    {
-                        return Conflict("Bus already exists");
-                    }
-                    /*if (_context.buses.Any(b => b.IsAvailable))
-                    {
-                        return Conflict("La capacidad tiene que ser mayor a 0");
-                    }*/
-
-                    // If there are no duplicates, create the bus.
-                    _context.buses.Add(bus);
-                    await _context.SaveChangesAsync();
-                    return CreatedAtAction(nameof(GetBuses), new { BusPlate = bus.BusPlate }, bus);
-                }
-                catch (Exception ex)
-                {
-                    return Content("ERROR:" + ex.Message);
-                }
-            /*}
-            else
+            try
             {
-                return Content("Permission denied!");
-            }*/
-            
-            
+
+                if (_context.buses.Any(b => b.BusPlate == bus.BusPlate))
+                {
+                    return Conflict("Bus already exists");
+                }
+
+                // If there are no duplicates, create the bus.
+                _context.buses.Add(bus);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction(nameof(GetBuses), new { BusPlate = bus.BusPlate }, bus);
+            }
+            catch (Exception ex)
+            {
+                return Content("ERROR:" + ex.Message);
+            }
         }
 
         // UPDATE BUS
+        [Authorize(Roles = "Admin")]
         [HttpPut("{BusPlate}")]
         public async Task<ActionResult<BusInfo>> UpdateBus(string BusPlate, BusInfo bus)
         {
@@ -119,6 +109,7 @@ namespace BusProyectApi.Controllers
         }
 
         // DELETE BUS
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{BusPlate}")]
         public async Task<IActionResult> DeleteBus(string BusPlate)
         {
